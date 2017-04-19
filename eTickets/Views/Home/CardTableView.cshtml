@@ -1,0 +1,35 @@
+﻿        <table class="table table-responsive table-bordered table-inverse">
+            <thead class="thead-inverse">
+                <tr class="success">
+                    <th>Id</th>
+                    <th>Number</th>
+                    <th>Status</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody id="entry-holder">
+                @foreach (Card c in Model)
+            {
+                if (c.Status == 0)
+                {
+                        <tr style="color:green">
+                            <td>@c.Id</td>
+                            <td>@c.Number</td>
+                            <td>@c.Status</td>
+                            <td>@c.Balance</td>
+                        </tr>
+                    }
+                    if (c.Status == 1)
+                    {
+                        <tr style="color:red">
+                            <td>@c.Id</td>
+                            <td>@c.Number</td>
+                            <td>@c.Status</td>
+                            <td>@c.Balance</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/scripts/mainScript.js")

@@ -10,21 +10,26 @@ namespace eTickets.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            using (Ticket_DBEntities1 t = new Ticket_DBEntities1())
+            {
+                var cards = t.Cards.ToList<Card>();
+                return View(cards);
+            }
         }
 
-        public ActionResult About()
+        public ActionResult AddCurrency(int cardId, int amount)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            using (var db = new Ticket_DBEntities1())
+            {
+                var result = db.Cards.SingleOrDefault(c => c.Id == cardId);
+                if (result != null)
+                {
+                    result.Balance += amount;
+                    db.SaveChanges();
+                }
+                return PartialView("CardTableView", db.Cards.ToList<Card>());
+            }
         }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+        
     }
 }
