@@ -1,5 +1,4 @@
 ﻿body {
-    padding: 40px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -20,6 +19,11 @@ textarea {
     max-width: 280px;
 }
 
+.body-content{
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
 #display-error-message{
     margin-top:10px;
     width: 200px;
@@ -27,4 +31,17 @@ textarea {
 }
 #cards-table-holder{
     font-size: 16px;
+}
+nav li a{
+    color: #ffffff;
+    font-size: 18px;
+}
+.card-number-item{
+    width: 40px;
+}
+.card-number-item:hover{
+    background-color: #808080;
+}
+.card-pick-column{
+    float:left;
 }

@@ -1,0 +1,43 @@
+﻿@model List<Operation>
+@{
+    Layout = "Operations";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <h2 align="center">
+        <strong>Операции</strong>
+    </h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 card-pick-column">
+                <label for="sel1">Выбор карты:</label>
+                @using (Ajax.BeginForm("GetOperations", "Home", new AjaxOptions { UpdateTargetId= "operations-table-holder" }))
+                {
+                    <div class="form-group">
+                        <select name="cardNumber" class="form-control">
+                            @foreach (Card c in ViewBag.cards)
+                {
+                                <option class="card-number-item">@c.Number</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-info" value="Отобразить операции">
+                    </div>
+                }
+            </div>
+            <div class="col-md-8">
+                <div id="operations-table-holder">
+                </div>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>
