@@ -1,6 +1,12 @@
 ﻿var clickedRow;
 
 $(document).ready(function () {
+
+    if ($('#operations-table tr').length == 1) {
+        $('#operations-table').hide();
+        $('#table-empty-message-holder').show();
+    }
+
     $("#display-error-message").hide();
 
     $("#entry-holder").find('tr').click(function () {
@@ -33,4 +39,5 @@ function onSuccesSendingForm() {
     $('input[name="amount"]').val("");
     $("#display-error-message").hide();
     $("#display-error-message").html("");
+    alert("Баланс пополнен!");
 }

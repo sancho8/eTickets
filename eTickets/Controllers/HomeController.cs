@@ -25,9 +25,9 @@ namespace eTickets.Controllers
 
         public ActionResult GetAdminPage()
         {
-            return RedirectToAction("Index");
+            return View("Admin", "_Layout");
         }
-
+ 
         public ActionResult GetOperationPage()
         {
             using (Ticket_DBEntities1 t = new Ticket_DBEntities1())
@@ -42,12 +42,30 @@ namespace eTickets.Controllers
         {
             using (var db = new Ticket_DBEntities1())
             {
-                var result = db.Cards.SingleOrDefault(c => c.Id == cardId);
-                if (result != null)
+                var card = db.Cards.SingleOrDefault(c => c.Id == cardId);
+                if (card != null)
                 {
-                    result.Balance += amount;
+                    card.Balance += amount;
+
+                    Operation op = new Operation();
+                    op.Id = db.Operations.Count() + 1;
+                    op.Card_Id = cardId;
+                    op.Card = card;
+                    op.Date = DateTime.Now;
+                    if (amount >= 0)
+                    {
+                        op.Description = "Пополнение баланса";
+                    }
+                    else
+                    { 
+                        op.Description = "Списание средств";
+                    }
+                    op.Amount = amount;
+                    db.Operations.Add(op);
+
                     db.SaveChanges();
                 }
+
                 return PartialView("CardTableView", db.Cards.ToList<Card>());
             }
         }

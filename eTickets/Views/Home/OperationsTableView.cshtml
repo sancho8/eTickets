@@ -1,10 +1,10 @@
-﻿<table class="table table-responsive table-bordered table-inverse">
+﻿<table class="table table-responsive table-bordered table-inverse" id="operations-table">
     <thead class="thead-inverse">
         <tr class="success">
-            <th>Id</th>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Amount</th>
+            <th>Идентификатор</th>
+            <th>Дата</th>
+            <th>Описание</th>
+            <th>Сумма</th>
         </tr>
     </thead>
     <tbody id="operations-holder">
@@ -21,8 +21,10 @@
     </tbody>
 </table>
 
+<div id="table-empty-message-holder" hidden>Никаких операций не производилось</div>
+
 <div class="alert alert-info">
-    <strong>Balance:</strong> @ViewBag.balance
+    <strong>Баланс:</strong> @ViewBag.balance
 </div>
 
 @Scripts.Render("~/bundles/jquery")

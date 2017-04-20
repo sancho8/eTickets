@@ -291,6 +291,7 @@
     <Content Include="Views\Home\CardTableView.cshtml" />
     <Content Include="Views\Home\OperationPage.cshtml" />
     <Content Include="Views\Home\OperationsTableView.cshtml" />
+    <Content Include="Views\Home\Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

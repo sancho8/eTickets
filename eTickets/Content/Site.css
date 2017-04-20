@@ -20,8 +20,8 @@ textarea {
 }
 
 .body-content{
-    padding-right: 20px;
-    padding-left: 20px;
+    padding-right: 40px;
+    padding-left: 40px;
 }
 
 #display-error-message{
@@ -44,4 +44,8 @@ nav li a{
 }
 .card-pick-column{
     float:left;
+}
+#table-empty-message-holder{
+    font-size: 24px;
+    padding: 5px;
 }
