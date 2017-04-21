@@ -145,5 +145,33 @@ namespace eTickets.Controllers
             }
         }
 
+        public ActionResult AddValidator(int validatorNumber)
+        {
+            using (var db = new Ticket_DBEntities1())
+            {
+                if (validatorNumber < 1000 || validatorNumber > 9999)
+                {
+                    ViewBag.ErrorMessage = "Неверный формат номера валидатора";
+                }
+                else if (db.Validators.Any(v => v.Number == validatorNumber))
+                {
+                    ViewBag.ErrorMessage = "Валидатор с таким номером уже существует";
+                }
+                else
+                {
+                    var validator = new Validator();
+                    validator.Id = db.Validators.Count() + 1;
+                    validator.Number = validatorNumber;
+                    validator.Status = 0;
+                    validator.Payment = 0;
+                    db.Validators.Add(validator);
+                    db.SaveChanges();
+                }
+                var validators = db.Validators.ToList<Validator>();
+                ViewBag.validators = validators;
+                return PartialView("AdminValidatorTableView");
+            }
+        }
+
     }
 }

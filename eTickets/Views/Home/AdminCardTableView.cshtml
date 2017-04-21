@@ -47,3 +47,7 @@
 </table>
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/scripts/mainScript.js")
+<script>
+    $("#add-card-error-modal").show();
+    $("#add-card-error-msg-holder").html("@ViewBag.ErrorMessage");
+</script>
