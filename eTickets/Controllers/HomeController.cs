@@ -25,7 +25,12 @@ namespace eTickets.Controllers
 
         public ActionResult GetAdminPage()
         {
-            return View("Admin", "_Layout");
+            using (Ticket_DBEntities1 t = new Ticket_DBEntities1())
+            {
+                ViewBag.Cards = t.Cards.ToList<Card>();
+                ViewBag.Validators = t.Validators.ToList<eTickets.Validator>();
+                return View("Admin", "_Layout");
+            }
         }
  
         public ActionResult GetOperationPage()
@@ -83,6 +88,62 @@ namespace eTickets.Controllers
                 return PartialView("OperationsTableView", operations);
             }
         }
-        
+
+        [HttpPost]
+        public ActionResult changeCardStatus(int cardId, int status)
+        {
+            using (var db = new Ticket_DBEntities1())
+            {
+                var card = db.Cards.SingleOrDefault(c => c.Id == cardId);
+                card.Status = status;
+                db.SaveChanges();
+                var cards = db.Cards.ToList<Card>();
+                ViewBag.cards = cards;
+                return PartialView("AdminCardTableView");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult changeValidatorData(int validatorId, int status, int payment)
+        {
+            using (var db = new Ticket_DBEntities1())
+            {
+                var validator = db.Validators.SingleOrDefault(v => v.Id == validatorId);
+                validator.Status = status;
+                validator.Payment = payment;
+                db.SaveChanges();
+                var validators = db.Validators.ToList<Validator>();
+                ViewBag.validators = validators;
+                return PartialView("AdminValidatorTableView");
+            }
+        }
+
+        public ActionResult AddCard(int cardNumber)
+        {
+            using (var db = new Ticket_DBEntities1())
+            {
+                if (cardNumber < 1000 || cardNumber > 9999)
+                {
+                    ViewBag.ErrorMessage = "Неверный формат номера карты";
+                }
+                else if (db.Cards.Any(c => c.Number == cardNumber))
+                {
+                    ViewBag.ErrorMessage = "Карта с таким номером уже существует";
+                }
+                else { 
+                    var card = new Card();
+                    card.Id = db.Cards.Count() + 1;
+                    card.Number = cardNumber;
+                    card.Status = 0;
+                    card.Balance = 0;
+                    db.Cards.Add(card);
+                    db.SaveChanges();
+                }
+                var cards = db.Cards.ToList<Card>();
+                ViewBag.cards = cards;
+                return PartialView("AdminCardTableView");
+            }
+        }
+
     }
 }

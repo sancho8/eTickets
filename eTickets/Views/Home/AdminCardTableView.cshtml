@@ -1,0 +1,49 @@
+﻿<table class="table table-responsive table-bordered table-inverse">
+    <thead class="thead-inverse">
+        <tr class="success">
+            <th>ID</th>
+            <th>Номер</th>
+            <th>Статус</th>
+            <th>Баланс</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Card c in ViewBag.Cards)
+        {
+            <tr class="card-item">
+                <td class="card-id-holder">@c.Id</td>
+                <td>@c.Number</td>
+                <td class="card-status-holder">
+                    @if (c.Status == 0)
+                    {
+                        <span>Активна</span>
+                    }
+                    else if (c.Status == 1)
+                    {
+                        <span>
+                            Заблокирована
+                        </span>
+                    }
+                    else
+                    {
+                        <span>Удалена</span>
+                    }
+                </td>
+                <td class="card-status-value" hidden>@c.Status</td>
+                <td class="card-status-editor" hidden>
+                    <select class="form-control" name="cardStatus">
+                        <option value="0">Активна</option>
+                        <option value="1">Заблокирована</option>
+                        <option value="2">Удалена</option>
+                    </select>
+                </td>
+                <td>@c.Balance</td>
+                <td class="change-card-status-btn"><button class="btn btn-info" onclick="changeCardStatusInit(this, @c.Status)">Изменить</button></td>
+                <td class="save-card-status-btn" hidden><button class="btn btn-success" onclick="changeCardStatusSave(this, @c.Id)">Обновить</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/scripts/mainScript.js")

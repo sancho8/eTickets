@@ -1,0 +1,52 @@
+﻿@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/scripts/validators.js")
+<table class="table table-responsive table-bordered table-inverse">
+    <thead class="thead-inverse">
+        <tr class="success">
+            <th>ID</th>
+            <th>Номер</th>
+            <th>Статус</th>
+            <th>Сумма оплаты</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (eTickets.Validator v in ViewBag.Validators)
+            {
+            <tr>
+                <td class="validator-id-holder">@v.Id</td>
+                <td>@v.Number</td>
+                <td class="validator-status-holder">
+                    @if (v.Status == 0)
+                    {
+                        <span>Активен</span>
+                    }
+                    else if (v.Status == 1)
+                    {
+                        <span>
+                            Заблокирован
+                        </span>
+                    }
+                    else
+                    {
+                        <span>Удален</span>
+                    }
+                </td>
+                <td class="validator-status-value" hidden>@v.Status</td>
+                <td class="validator-status-editor" hidden>
+                    <select class="form-control" name="validatorStatus">
+                        <option value="0">Активен</option>
+                        <option value="1">Заблокирован</option>
+                        <option value="2">Удален</option>
+                    </select>
+                </td>
+                <td class="validator-payment-holder">@v.Payment</td>
+                <td class="validator-payment-editor" hidden>
+                    <input type="number" class="form-control" name="payment">
+                </td>
+                <td class="change-validator-data-btn"><button class="btn btn-info" onclick="changeValidatorDataInit(this)">Изменить</button></td>
+                <td class="save-validator-data-btn" hidden><button class="btn btn-success" onclick="changeValidatorDataSave(this, @v.Id)">Обновить</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
